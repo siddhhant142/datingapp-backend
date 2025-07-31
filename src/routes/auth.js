@@ -4,9 +4,10 @@ const User = require("../Models/user");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 const { validateSignupData } = require("../utils/validation");
+const userAuth = require("../Middlewares/userAuth");
 
 //signup api for signing the user
-authRouter.post("/signup", async (req, res) => {
+authRouter.post("/signup",  userAuth, async (req, res) => {
   try {
     //Validate the data
     validateSignupData(req);
@@ -53,7 +54,7 @@ authRouter.post("/signup", async (req, res) => {
   }
 });
 
-authRouter.post("/login", async (req, res) => {
+authRouter.post("/login",   userAuth,async (req, res) => {
   try {
     const { emailId, password } = req.body;
     if (!validator.isEmail(emailId)) {

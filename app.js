@@ -13,7 +13,11 @@ const uri = process.env.MONGO_URI;
 
 app.use(
   cors({
-      origin: ['http://localhost:5173', 'https://dating-app-ykok.vercel.app'],
+    origin: [
+      'http://localhost:5173',
+      'https://dating-app-ykok.vercel.app',
+      'https://your-new-frontend-domain.com'
+    ],
     credentials: true,
   })
 );
@@ -21,6 +25,12 @@ app.use(
 app.get("/", (req, res) => {
   res.send("Dating App Backend is running");
 });
+
+const path = require("path");
+const favicon = require("serve-favicon");
+
+app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
+
 
 
 app.use(express.json());
